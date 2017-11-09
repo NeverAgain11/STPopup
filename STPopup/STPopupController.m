@@ -67,7 +67,7 @@ static NSMutableSet *_retainedPopupControllers;
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return _hideStatusBar
+    return _hideStatusBar;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden
@@ -75,7 +75,7 @@ static NSMutableSet *_retainedPopupControllers;
     if (self.childViewControllers.lastObject) {
         return self.childViewControllers.lastObject;
     }
-    return nil
+    return nil;
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -581,7 +581,7 @@ static NSMutableSet *_retainedPopupControllers;
 - (void)setup
 {
     _containerViewController = [STPopupContainerViewController new];
-    _containerViewController.hideStatusBar = self.statusBarHidden
+    _containerViewController.hideStatusBar = self.statusBarHidden;
     _containerViewController.view.backgroundColor = [UIColor clearColor];
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
         _containerViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
