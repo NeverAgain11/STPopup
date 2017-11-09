@@ -576,12 +576,15 @@ static NSMutableSet *_retainedPopupControllers;
     return navigationController.navigationBar.bounds.size.height;
 }
 
+- (void)setStatusBarHidden:(BOOL)statusBarHidden {
+    _containerViewController.hideStatusBar = statusBarHidden;
+}
+
 #pragma mark - UI setup
 //真难
 - (void)setup
 {
     _containerViewController = [STPopupContainerViewController new];
-    _containerViewController.hideStatusBar = self.statusBarHidden;
     _containerViewController.view.backgroundColor = [UIColor clearColor];
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) {
         _containerViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
