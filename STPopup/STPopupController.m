@@ -577,7 +577,7 @@ static NSMutableSet *_retainedPopupControllers;
 }
 
 #pragma mark - UI setup
-
+//真难
 - (void)setup
 {
     _containerViewController = [STPopupContainerViewController new];
