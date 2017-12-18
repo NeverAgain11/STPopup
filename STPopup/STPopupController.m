@@ -531,7 +531,7 @@ static NSMutableSet *_retainedPopupControllers;
     CGFloat containerViewY = (_containerViewController.view.bounds.size.height - containerViewHeight) / 2;
     
     if (self.style == STPopupStyleBottomSheet) {
-        containerViewY = _containerViewController.view.bounds.size.height - containerViewHeight;
+        containerViewY = _containerViewController.view.bounds.size.height - containerViewHeight - _containerViewController.bottomLayoutGuide.length;
         containerViewHeight += STPopupBottomSheetExtraHeight;
     }
     
