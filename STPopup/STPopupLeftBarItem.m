@@ -17,7 +17,7 @@
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action
 {
-    _customView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, 18, 44)];
+    _customView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, 58 + 18 + 18, 44)];
     if (self = [super initWithCustomView:_customView]) {
         [_customView addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         _bar1 = [UIView new];
@@ -66,6 +66,7 @@
         case STPopupLeftBarItemArrow: {
             barWidth = _customView.frame.size.height / 4;
             barX = (_customView.frame.size.width - barWidth) / 2 - barWidth / 2;
+            barX = 0;
             bar1Y = (_customView.frame.size.height - barHeight) / 2 + barWidth / 2 * sin(M_PI_4);
             bar2Y = (_customView.frame.size.height - barHeight) / 2 - barWidth / 2 * sin(M_PI_4);
         }
@@ -90,3 +91,4 @@
 }
 
 @end
+
