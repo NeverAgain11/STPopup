@@ -370,6 +370,8 @@ static NSMutableSet *_retainedPopupControllers;
     [fromViewController willMoveToParentViewController:nil];
     [_containerViewController addChildViewController:toViewController];
     
+    _backgroundView.userInteractionEnabled = false;
+
     if (animated) {
         // Capture view in "fromViewController" to avoid "viewWillAppear" and "viewDidAppear" being called.
         UIGraphicsBeginImageContextWithOptions(fromViewController.view.bounds.size, NO, [UIScreen mainScreen].scale);
@@ -401,6 +403,8 @@ static NSMutableSet *_retainedPopupControllers;
             
             [fromViewController endAppearanceTransition];
             [toViewController endAppearanceTransition];
+            _backgroundView.userInteractionEnabled = true;
+
         }];
         [self updateNavigationBarAniamted:animated];
     }
@@ -417,6 +421,8 @@ static NSMutableSet *_retainedPopupControllers;
         
         [fromViewController endAppearanceTransition];
         [toViewController endAppearanceTransition];
+        _backgroundView.userInteractionEnabled = true;
+
     }
 }
 
