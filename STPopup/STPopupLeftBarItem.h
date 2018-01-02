@@ -20,8 +20,8 @@ typedef NS_ENUM(NSUInteger, STPopupLeftBarItemType) {
 @property (nonatomic, assign) STPopupLeftBarItemType type;
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action;
-- (void)setType:(STPopupLeftBarItemType)type animated:(BOOL)animated;
-
+- (void)setType:(STPopupLeftBarItemType)type title:(NSString *)title animated:(BOOL)animated;
 @end
 
 NS_ASSUME_NONNULL_END
+

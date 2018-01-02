@@ -163,7 +163,7 @@ static NSMutableSet *_retainedPopupControllers;
 
 - (UIViewController *)topViewController
 {
-  return _viewControllers.lastObject;
+    return _viewControllers.lastObject;
 }
 
 - (BOOL)presented
@@ -371,12 +371,12 @@ static NSMutableSet *_retainedPopupControllers;
     [_containerViewController addChildViewController:toViewController];
     
     _backgroundView.userInteractionEnabled = false;
-
+    
     if (animated) {
         // Capture view in "fromViewController" to avoid "viewWillAppear" and "viewDidAppear" being called.
         UIGraphicsBeginImageContextWithOptions(fromViewController.view.bounds.size, NO, [UIScreen mainScreen].scale);
         [fromViewController.view drawViewHierarchyInRect:fromViewController.view.bounds afterScreenUpdates:NO];
-
+        
         UIImageView *capturedView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
         
         UIGraphicsEndImageContext();
@@ -404,7 +404,7 @@ static NSMutableSet *_retainedPopupControllers;
             [fromViewController endAppearanceTransition];
             [toViewController endAppearanceTransition];
             _backgroundView.userInteractionEnabled = true;
-
+            
         }];
         [self updateNavigationBarAniamted:animated];
     }
@@ -422,7 +422,7 @@ static NSMutableSet *_retainedPopupControllers;
         [fromViewController endAppearanceTransition];
         [toViewController endAppearanceTransition];
         _backgroundView.userInteractionEnabled = true;
-
+        
     }
 }
 
@@ -439,7 +439,11 @@ static NSMutableSet *_retainedPopupControllers;
         _navigationBar.topItem.leftBarButtonItem == _defaultLeftBarItem) {
         _navigationBar.topItem.leftBarButtonItems = nil;
     }
-    
+    NSString *backTitle = @"";
+    if (_viewControllers.count > 1) {
+        UIViewController *vc = _viewControllers[_viewControllers.count - 2];
+        backTitle = vc.title;
+    }
     if (animated) {
         UIView *fromTitleView, *toTitleView;
         if (lastTitleView == _defaultTitleLabel)    {
@@ -492,7 +496,9 @@ static NSMutableSet *_retainedPopupControllers;
         }
     }
     _defaultLeftBarItem.tintColor = _navigationBar.tintColor;
+    
     [_defaultLeftBarItem setType:_viewControllers.count > 1 ? STPopupLeftBarItemArrow : STPopupLeftBarItemCross
+                           title:backTitle
                         animated:shouldAnimateDefaultLeftBarItem];
 }
 
@@ -528,7 +534,7 @@ static NSMutableSet *_retainedPopupControllers;
 - (void)layoutContainerView
 {
     _backgroundView.frame = _containerViewController.view.bounds;
- 
+    
     CGFloat preferredNavigationBarHeight = [self preferredNavigationBarHeight];
     CGFloat navigationBarHeight = _navigationBarHidden ? 0 : preferredNavigationBarHeight;
     CGSize contentSizeOfTopView = [self contentSizeOfTopView];
@@ -555,13 +561,13 @@ static NSMutableSet *_retainedPopupControllers;
     UIViewController *topViewController = self.topViewController;
     CGSize contentSize = CGSizeZero;
     switch ([UIApplication sharedApplication].statusBarOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight: {
-            contentSize = topViewController.landscapeContentSizeInPopup;
-            if (CGSizeEqualToSize(contentSize, CGSizeZero)) {
-                contentSize = topViewController.contentSizeInPopup;
+            case UIInterfaceOrientationLandscapeLeft:
+            case UIInterfaceOrientationLandscapeRight: {
+                contentSize = topViewController.landscapeContentSizeInPopup;
+                if (CGSizeEqualToSize(contentSize, CGSizeZero)) {
+                    contentSize = topViewController.contentSizeInPopup;
+                }
             }
-        }
             break;
         default: {
             contentSize = topViewController.contentSizeInPopup;
@@ -640,10 +646,10 @@ static NSMutableSet *_retainedPopupControllers;
 - (void)leftBarItemDidTap
 {
     switch (_defaultLeftBarItem.type) {
-        case STPopupLeftBarItemCross:
+            case STPopupLeftBarItemCross:
             [self dismiss];
             break;
-        case STPopupLeftBarItemArrow:
+            case STPopupLeftBarItemArrow:
             [self popViewControllerAnimated:YES];
             break;
         default:
@@ -825,11 +831,11 @@ static NSMutableSet *_retainedPopupControllers;
 {
     STPopupControllerTransitioningContext *context = [self convertTransitioningContext:transitionContext];
     switch (self.transitionStyle) {
-        case STPopupTransitionStyleSlideVertical:
+            case STPopupTransitionStyleSlideVertical:
             return [_transitioningSlideVertical popupControllerTransitionDuration:context];
-        case STPopupTransitionStyleFade:
+            case STPopupTransitionStyleFade:
             return [_transitioningFade popupControllerTransitionDuration:context];
-        case STPopupTransitionStyleCustom:
+            case STPopupTransitionStyleCustom:
             NSAssert(self.transitioning, @"transitioning should be provided if it's using STPopupTransitionStyleCustom");
             return [_transitioning popupControllerTransitionDuration:context];
     }
@@ -847,13 +853,13 @@ static NSMutableSet *_retainedPopupControllers;
     STPopupControllerTransitioningContext *context = [self convertTransitioningContext:transitionContext];
     id<STPopupControllerTransitioning> transitioning = nil;
     switch (self.transitionStyle) {
-        case STPopupTransitionStyleSlideVertical:
+            case STPopupTransitionStyleSlideVertical:
             transitioning = _transitioningSlideVertical;
             break;
-        case STPopupTransitionStyleFade:
+            case STPopupTransitionStyleFade:
             transitioning = _transitioningFade;
             break;
-        case STPopupTransitionStyleCustom:
+            case STPopupTransitionStyleCustom:
             transitioning = self.transitioning;
             break;
     }
@@ -952,3 +958,4 @@ static NSMutableSet *_retainedPopupControllers;
 }
 
 @end
+
